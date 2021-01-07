@@ -7,9 +7,9 @@ import './Person/Person.css';
 class App extends Component {
   state = {
     persons: [
-      {name: 'Max', age: '28'},
-      {name: 'Manu', age: '29'},
-      {name: 'Dhita', age: '25'},
+      {id: '1', name: 'Max', age: '28'},
+      {id: '2', name: 'Manu', age: '29'},
+      {id: '3', name: 'Dhita', age: '25'},
     ],
     otherState: 'see other value',
     showPersons: false,
@@ -28,14 +28,26 @@ class App extends Component {
   }
 
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        {name: 'Max', age: '28'},
-        {name: event.target.value, age: '29'},
-        {name: 'Dhita', age: '25'},
-      ]
-    })
+  nameChangedHandler = (event, id) => {
+
+    // Returns the index of person with id in the argument 
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+
+    // Creata a variable container a NEW object of the person (using spread)
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+    // Alternative, less modern approach 
+    // const person = Object.assign({}, this.state.persons[personIndex])
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({persons: persons});
   }
 
   togglePersonsHandler = () => {
@@ -43,6 +55,14 @@ class App extends Component {
     this.setState({showPersons: !doesShow});
   }
   
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons;             // Not a good practice, bc this is mutable 
+    // const persons = this.state.persons.slice();     // Create a copy of array (good practice / immutable fashion)
+    const persons = [...this.state.persons];           // Crate a spread of array (good practice / immutable fashion)
+    persons.splice(personIndex, 1);                    // Delete person on index personIndex
+    this.setState({persons: persons})                  // Update state
+  }
+
   render() {
 
     const style = {
@@ -58,17 +78,14 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div >
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}/>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Max!')}
-            changed={this.nameChangedHandler}> My Hobby: Racing</Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}/>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              name={person.name} 
+              age={person.age}
+              click={() => this.deletePersonHandler(index)} 
+              changed={(event) => this.nameChangedHandler(event, person.id)}
+              key={person.id}/>
+          })}
         </div>
       );
     }
@@ -79,7 +96,7 @@ class App extends Component {
         <p>This is really working!</p>
         <button 
           style={style}
-          onClick={this.togglePersonsHandler}>Show Name</button>
+          onClick={this.togglePersonsHandler}>Toggle Name</button>
           {persons}
       </div>
     );
