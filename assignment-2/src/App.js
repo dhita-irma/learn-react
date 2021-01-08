@@ -17,13 +17,12 @@ class App extends Component {
   }
 
   deleteCharHandler = (index) => {
-    const text = this.state.text;
-    const textArray = text.split('');
-    textArray.splice(index, 1);
+    const text = this.state.text.split('');
+    text.splice(index, 1);
 
     this.setState({
-      text: textArray.join(''),
-      count: textArray.length,
+      text: text.join(''),
+      count: text.length,
     })
   }
 
