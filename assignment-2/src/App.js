@@ -5,7 +5,7 @@ import './App.css';
 
 class App extends Component {
   state = {
-    text: null, 
+    text: "",
     count: 0,
   }
 
@@ -14,6 +14,17 @@ class App extends Component {
       text: s,
       count: s.length,
     });
+  }
+
+  deleteCharHandler = (index) => {
+    const text = this.state.text;
+    const textArray = text.split('');
+    textArray.splice(index, 1);
+
+    this.setState({
+      text: textArray.join(''),
+      count: textArray.length,
+    })
   }
 
   render() {
@@ -25,9 +36,13 @@ class App extends Component {
       const charString = this.state.text.split('');       // Split chars into an array of its item
       charsComp = (
         <div>
-          {charString.map((c) => {
+          {/* Return a list of component that contain each character in the charString*/}
+          {charString.map((c, i) => {
             if (c !== " ") {
-              return <CharComponent char={c}/>
+              return <CharComponent 
+                char={c} 
+                key={i.toString()} 
+                click={() => this.deleteCharHandler(i)}/>
             } else {
               return null
             }
@@ -42,6 +57,7 @@ class App extends Component {
 
         <input
           className='userInput'
+          value={this.state.text}
           onChange={(event) => this.charChangedHandler(event.target.value)}/>
         <p>{this.state.count}</p>
 

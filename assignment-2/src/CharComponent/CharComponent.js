@@ -9,7 +9,7 @@ const inlineBox = {
 };
 
 const charComponent = (props) => {
-    return <div style={inlineBox}>{props.char}</div>
+    return <div style={inlineBox} onClick={props.click}>{props.char}</div>
 };
 
 export default charComponent;
