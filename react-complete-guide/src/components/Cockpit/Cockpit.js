@@ -23,7 +23,7 @@ const cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>Click the button bellow!</p>
-            <button className={btnClass} alt={props.showPersons} onClick={props.clicked}>
+            <button className={btnClass} alt={props.showPersons.toString()} onClick={props.clicked}>
             Toggle Persons
             </button>
         </div>
