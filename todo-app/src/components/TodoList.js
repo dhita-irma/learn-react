@@ -11,7 +11,8 @@ const TodoList = ({ todos, setTodos }) => {
                     item={item} 
                     todos={todos} 
                     setTodos={setTodos} 
-                    key={item.id}/>)}
+                    key={item.id}/>
+                )}
             </ul>
         </div>
     );
