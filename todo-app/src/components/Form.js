@@ -12,7 +12,7 @@ const Form = ({ inputText, setInputText, todos, setTodos }) => {
         // Prevent the page to reload
         e.preventDefault();
 
-        // Set todos
+        // Set todo state
         setTodos([
             ...todos, {text: inputText, completed: false, id: Math.random() * 1000}
         ]);
