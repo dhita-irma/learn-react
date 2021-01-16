@@ -4,6 +4,7 @@ import React from 'react';
 const Todo = ({ item, todos, setTodos }) => {
 
     const deleteTodoHandler = () => {
+        console.log('Removing item..');
         console.log(item);
 
         // Remove todo item 
@@ -11,8 +12,9 @@ const Todo = ({ item, todos, setTodos }) => {
     };
 
     const completeHandler = () => {
+        console.log('Change item status..');
         console.log(item);
-
+        
         // Update state complete: true 
         setTodos(todos.map( el => {
             if (el.id === item.id) {
