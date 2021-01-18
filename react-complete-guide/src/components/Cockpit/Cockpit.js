@@ -9,14 +9,14 @@ const cockpit = (props) => {
       console.log('[Cockpit.js] useEffect!')
 
       // Http request... 
-      const timer = setTimeout(() => {
-        alert('Saved data to cloud!');
-      }, 1000);
+      // const timer = setTimeout(() => {
+      //   alert('Saved data to cloud!');
+      // }, 1000);
 
 
       // Runs when the component gets unmounted
       return () => {
-        clearTimeout(timer);
+        // clearTimeout(timer);
         console.log('[Cockpit.js] clean up work in useEffect');
       }
     }, [props.persons]);

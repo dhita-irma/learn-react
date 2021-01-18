@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Aux from '../../../hoc/Auxiliary';
+
 import classes from './Person.css'
 
 const person = (props) => {
     return (
-        <div className={classes.Person}>
-            <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
-            <p>{props.children}</p>
-            <input type="text" onChange={props.changed} value={props.name}/>
-        </div>
-    )
+        <Fragment>
+            <p key="i1" onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
+            <p key="i2">{props.children}</p>
+            <input key="i3" type="text" onChange={props.changed} value={props.name}/>
+        </Fragment>
+    );
 };
 
 export default person;
