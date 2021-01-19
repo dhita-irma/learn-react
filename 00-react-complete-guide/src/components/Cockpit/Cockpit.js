@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 
 const cockpit = (props) => {
+
+    const toggleBtnRef = React.createRef(null);
 
     // With argument: useEffect run only when state in argument array gets updated 
     useEffect(() => {
@@ -13,7 +15,7 @@ const cockpit = (props) => {
       //   alert('Saved data to cloud!');
       // }, 1000);
 
-
+      toggleBtnRef.current.click();
       // Runs when the component gets unmounted
       return () => {
         // clearTimeout(timer);
@@ -46,7 +48,7 @@ const cockpit = (props) => {
         <div className={classes.Cockpit}>
             <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>Click the button bellow!</p>
-            <button className={btnClass} alt={props.showPersons.toString()} onClick={props.clicked}>
+            <button ref={toggleBtnRef} className={btnClass} alt={props.showPersons.toString()} onClick={props.clicked}>
             Toggle Persons
             </button>
         </div>
