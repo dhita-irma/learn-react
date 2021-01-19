@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Menu from './Menu';
 import Categories from './Categories';
@@ -9,9 +9,26 @@ function App() {
   const [menuItems, setMenuItems] = useState(items);
   const [categories, setCategories] = useState([]);
 
+  useEffect(() => {
+
+    // Set categories 
+    var menuCategories = ['all'];
+    for (var i = 0; i < items.length; i++) {
+      if (!menuCategories.includes(items[i].category)) {
+        menuCategories.push(items[i].category);
+      }
+    }
+
+    setCategories(menuCategories);
+  }, []);
+
   const filterItems = (category) => {
-    const newItems = items.filter((item) => item.category === category);
-    setMenuItems(newItems);
+      if (category === 'all') {
+        setMenuItems(items);
+      } else {
+        const newItems = items.filter(item => item.category === category);
+        setMenuItems(newItems);
+      }
   };
 
   return (
@@ -22,7 +39,7 @@ function App() {
           <div className="underline"></div>
         </div>
       </section>
-      <Categories filterItems={filterItems}/>
+      <Categories categories={categories} filterItems={filterItems}/>
       <Menu items={menuItems}/>
     </main>
   );
